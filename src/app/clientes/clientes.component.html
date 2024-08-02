@@ -1,0 +1,96 @@
+
+<detalle-cliente *ngIf="clienteSeleccionado" [cliente]="clienteSeleccionado"></detalle-cliente>    
+
+<div class="card border-primary mb-3 divMedia" ><!--style="width:768px;" -->
+   <div class="card-header">Clientes</div>
+    <div class="card-body text-primary">
+      <h5 class="card-title">Listado de Clientes</h5>
+      <div class="btn-2 text-left col-sm-30">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]= "['/clientes/form']">Crear Cliente</button>
+      </div>
+      <br>
+      <button type="button" (click)="setHabilitarC()" class="btn btn-link">{{habilitar==true?'Ocultar findall':'Mostrar findall'}}</button>
+      <div *ngIf = "clientes.length == 0" class="alert alert-info">
+        No hay registros en la base de datos
+      </div>
+      <table class="table table-bordered table-striped table-responsive-md" *ngIf ="clientes.length>0 && habilitar == true">
+       <thead>
+        <tr class="text-primary">
+          <th width="30">id</th>
+          <th width="80">Nombre</th>
+          <th width="80">Apellido</th>
+          <th width="160">email</th>
+          <th width="90">Fecha</th>
+          <th width="65">Editar</th>
+          <th width="69">Eliminar</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr *ngFor="let cliente of clientes">
+            <td class="text-primary" >{{  cliente.id}}</td>
+            <td class="text-primary" >{{  cliente.nombre}}</td>
+            <td class="text-primary" >{{  cliente.apellido }}</td>  <!--| uppercase    Formateo desde la vista   -->
+            <td class="text-primary" >{{  cliente.email}}</td>
+            <td class="text-primary" >{{  cliente.createAt | date:"EEE d, MMM yyyy"}}</td>
+            <td>
+              <button type="button" name="editar"[routerLink]="['/clientes/form',cliente.id]" class="btn btn-primary btn-sm">editar</button>
+            </td>
+            <td>
+              <button type="button" name="eliminar" (click)='delete(cliente)' class="btn btn-danger btn-sm">eliminar</button>
+            </td>
+        </tr>
+       </tbody>
+      </table>
+
+
+
+      <!-- #PAGE -->
+      <button type="button" (click)="setHabilitarP()" class="btn btn-link">{{habilitarP==true?'Ocultar findall Pages':'Mostrar findall Pages'}}</button>
+      <div *ngIf = "clientesP.length == 0" class="alert alert-info">
+        No hay registros en la base de datos
+      </div>
+      <table class="table table-bordered table-striped table-responsive-md" *ngIf ="clientesP.length>0 && habilitarP == true">
+       <thead>
+        <tr class="text-primary">
+          <th width="30">#</th>
+          <th width="80">Nombre</th>
+          <th width="80">Apellido</th>
+          <th width="160">email</th>
+          <th width="90">Fecha</th>
+          <th width="90">factura</th>
+          <th width="65">Editar</th>
+          <th width="69">Eliminar</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr *ngFor="let cliente of clientesP"> 
+            <td class="text-primary" ><img (click)="abrirModal(cliente)" *ngIf="cliente?.foto" 
+              src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded"
+              style="width:64px; cursor: pointer;">
+
+              <img (click)="abrirModal(cliente)" *ngIf="!cliente?.foto" 
+              src="http://localhost:8080/images/no-usuario.png" alt="Sin foto" class="img-thumbnail rounded"
+              style="width:64px; cursor: pointer;">
+             <!--  <button type="button" (click)="abrirModal(cliente)" class="btn btn-success btn-sm">{{  cliente.id }}</button></td> -->
+            <td class="text-primary" >{{  cliente.nombre}}</td>
+            <td class="text-primary" >{{  cliente.apellido }}</td>  <!--| uppercase    Formateo desde la vista   -->
+            <td class="text-primary" >{{  cliente.email}}</td>
+            <td class="text-primary" >{{  cliente.createAt | date:"EEE d, MMM yyyy"}}</td>
+            <td>
+              <button type="button" name ="factura" class="btn btn-success btn-sm" [routerLink]="['/facturas/form',cliente.id]">Factura</button></td>
+            <td>
+              <button type="button" name="editar"[routerLink]="['/clientes/form',cliente.id]" class="btn btn-primary btn-sm">editar</button>
+            </td>
+            <td>
+              <button type="button" name="eliminar" (click)='delete(cliente)' class="btn btn-danger btn-sm">eliminar</button>
+            </td>
+        </tr>
+       </tbody>
+      </table>
+      <paginator-nav *ngIf="paginador" [paginador]= "paginador"></paginator-nav>
+
+
+
+
+      </div>
+  </div>

@@ -1,0 +1,14 @@
+/*li :disabled {
+    background: #0509ec;
+  }
+
+
+  li.three{background: #0509ec}*/
+
+
+
+  .disabled {
+    /*pointer-events:none; 
+    SI CAMBIA EL COLOR ES POR A CA */ 
+    opacity:10.5; 
+}

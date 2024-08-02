@@ -1,0 +1,20 @@
+.divMedia {
+    /*background-color: green;*/
+    
+}
+@media (max-width: 768px) {
+    .divMedia {
+      /*  background-color: red; */
+        width: 768px;
+    }
+}
+
+
+/*Setting the Max length in a <TD> https://stackoverflow.com/questions/981572/setting-the-max-length-in-a-td*/
+table {
+    table-layout:fixed;
+}
+
+table td {
+    overflow:hidden;
+} 
